@@ -175,10 +175,12 @@ const productos = [
 ];
 
 //Añadir productos al JSON 
+function agregarProducto() {
+    const nameValue = nameInput.value.trim();
+    const priceValue = parseFloat(priceInput.value.trim());
+    const descriptionValue = messageTextarea.value.trim();
+    const categoryValue = categorySelect.value.trim();
 
-const btnSubmit = document.getElementById('btn-add-product')
-
-btnSubmit.addEventListener('click', function agregarProducto(nameValue, priceValue, descriptionValue, categoryValue) {
     const nuevoProducto = {
         id: productos.length + 1,
         nombre: nameValue,
@@ -186,19 +188,21 @@ btnSubmit.addEventListener('click', function agregarProducto(nameValue, priceVal
         descripcion: descriptionValue,
         categoria: categoryValue
     };
+
     productos.push(nuevoProducto);
+
     console.log("Producto agregado exitosamente:");
     console.log(JSON.stringify(nuevoProducto, null, 2));
-})
 
-function listarProductos() {
-    return JSON.stringify(productos, null, 2);
-    }
-    console.log(listarProductos());
+    localStorage.setItem('productos', JSON.stringify(productos));
 
-// Ejemplo de uso
-// agregarProducto("Disco Duro Externo Seagate", 100, "Disco Duro Externo Seagate de 2TB, USB 3.0");
+    form.reset();
+}
 
-// console.log("Lista de productos actualizada:");
-// console.log(listarProductos());
+submitButton.addEventListener('click', function(event) {
+    event.preventDefault(); 
+    agregarProducto();
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+});
+
 
