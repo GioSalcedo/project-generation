@@ -6,11 +6,6 @@ const categorySelect = document.getElementById('category');
 const messageTextarea = document.getElementById('description');
 const submitButton = form.querySelector('button[type="submit"]');
 
-const nameValue = nameInput.value.trim()
-const priceValue = priceInput.value.trim();
-const categoryValue = categorySelect.value.trim();
-const descriptionValue = messageTextarea.value.trim();
-
 // Start of the form validation
 document.addEventListener('DOMContentLoaded', function () {
     const errorParagraph = document.createElement('p');
@@ -37,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function validatePrice() {
+        const priceValue = priceInput.value.trim();
         if (priceInput.value.trim() === '' || priceValue.length < 0) {
             priceInput.style.borderColor = errorColor;
             return 'Por favor, ingrese un precio válido.';
@@ -178,7 +174,12 @@ const productos = [
 
 const btnSubmit = document.getElementById('btn-add-product')
 
-btnSubmit.addEventListener('click', function agregarProducto(nameValue, priceValue, descriptionValue, categoryValue) {
+function agregarProducto() {
+    const nameValue = nameInput.value.trim()
+    const priceValue = priceInput.value.trim();
+    const categoryValue = categorySelect.value.trim();
+    const descriptionValue = messageTextarea.value.trim();
+
     const nuevoProducto = {
         id: productos.length + 1,
         nombre: nameValue,
@@ -186,15 +187,40 @@ btnSubmit.addEventListener('click', function agregarProducto(nameValue, priceVal
         descripcion: descriptionValue,
         categoria: categoryValue
     };
+
     productos.push(nuevoProducto);
+    localStorage.setItem('productos', JSON.stringify(productos))
+
     console.log("Producto agregado exitosamente:");
     console.log(JSON.stringify(nuevoProducto, null, 2));
-})
+
+    
+
+    form.reset();
+}
+
+// btnSubmit.addEventListener('submit', function agregarProducto(nameValue, priceValue, descriptionValue, categoryValue) {
+//     event.preventDefault()
+//     const nuevoProducto = {
+//         id: productos.length + 1,
+//         nombre: nameValue,
+//         precio: priceValue,
+//         descripcion: descriptionValue,
+//         categoria: categoryValue
+//     };
+
+//     localStorage.setItem('productos', JSON.stringify(productos))
+
+//     productos.push(nuevoProducto);
+//     console.log("Producto agregado exitosamente:");
+//     console.log(JSON.stringify(nuevoProducto, null, 2));
+// })
 
 function listarProductos() {
     return JSON.stringify(productos, null, 2);
-    }
-    console.log(listarProductos());
+}
+
+console.log(listarProductos());
 
 // Ejemplo de uso
 // agregarProducto("Disco Duro Externo Seagate", 100, "Disco Duro Externo Seagate de 2TB, USB 3.0");
