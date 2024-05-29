@@ -171,60 +171,35 @@ const productos = [
 ];
 
 //Añadir productos al JSON 
-
-const btnSubmit = document.getElementById('btn-add-product')
-
 function agregarProducto() {
-    const nameValue = nameInput.value.trim()
-    const priceValue = priceInput.value.trim();
-    const categoryValue = categorySelect.value.trim();
-    const descriptionValue = messageTextarea.value.trim();
+    const btnSubmit = document.getElementById('btn-add-product')
 
-    const nuevoProducto = {
-        id: productos.length + 1,
-        nombre: nameValue,
-        precio: priceValue,
-        descripcion: descriptionValue,
-        categoria: categoryValue
-    };
+    function agregarProducto() {
+        const nameValue = nameInput.value.trim()
+        const priceValue = priceInput.value.trim();
+        const categoryValue = categorySelect.value.trim();
+        const descriptionValue = messageTextarea.value.trim();
 
-    productos.push(nuevoProducto);
-    localStorage.setItem('productos', JSON.stringify(productos))
+        const nuevoProducto = {
+            id: productos.length + 1,
+            nombre: nameValue,
+            precio: priceValue,
+            descripcion: descriptionValue,
+            categoria: categoryValue
+        };
 
-    console.log("Producto agregado exitosamente:");
-    console.log(JSON.stringify(nuevoProducto, null, 2));
+        productos.push(nuevoProducto);
 
-    
+        console.log("Producto agregado exitosamente:");
+        console.log(JSON.stringify(nuevoProducto, null, 2));
 
-    form.reset();
+        localStorage.setItem('productos', JSON.stringify(productos));
+
+        form.reset();
+    }
+    submitButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+        agregarProducto();
+    });
 }
-
-// btnSubmit.addEventListener('submit', function agregarProducto(nameValue, priceValue, descriptionValue, categoryValue) {
-//     event.preventDefault()
-//     const nuevoProducto = {
-//         id: productos.length + 1,
-//         nombre: nameValue,
-//         precio: priceValue,
-//         descripcion: descriptionValue,
-//         categoria: categoryValue
-//     };
-
-//     localStorage.setItem('productos', JSON.stringify(productos))
-
-//     productos.push(nuevoProducto);
-//     console.log("Producto agregado exitosamente:");
-//     console.log(JSON.stringify(nuevoProducto, null, 2));
-// })
-
-function listarProductos() {
-    return JSON.stringify(productos, null, 2);
-}
-
-console.log(listarProductos());
-
-// Ejemplo de uso
-// agregarProducto("Disco Duro Externo Seagate", 100, "Disco Duro Externo Seagate de 2TB, USB 3.0");
-
-// console.log("Lista de productos actualizada:");
-// console.log(listarProductos());
 
