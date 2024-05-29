@@ -1,11 +1,18 @@
+//variables 
+const form = document.querySelector('.add-product-form');
+const nameInput = document.getElementById('product-name');
+const priceInput = document.getElementById('price');
+const categorySelect = document.getElementById('category');
+const messageTextarea = document.getElementById('description');
+const submitButton = form.querySelector('button[type="submit"]');
+
+const nameValue = nameInput.value.trim()
+const priceValue = priceInput.value.trim();
+const categoryValue = categorySelect.value.trim();
+const descriptionValue = messageTextarea.value.trim();
+
 // Start of the form validation
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('.add-product-form');
-    const nameInput = document.getElementById('product-name');
-    const priceInput = document.getElementById('price');
-    const categorySelect = document.getElementById('category');
-    const messageTextarea = document.getElementById('description');
-    const submitButton = form.querySelector('button[type="submit"]');
     const errorParagraph = document.createElement('p');
     const errorColor = 'var(--Colors-semantic-error, #e93828)';
 
@@ -30,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function validatePrice() {
-        const priceValue = priceInput.value.trim();
         if (priceInput.value.trim() === '' || priceValue.length < 0) {
             priceInput.style.borderColor = errorColor;
             return 'Por favor, ingrese un precio válido.';
@@ -93,100 +99,102 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 // End of the form add product validation
 
-// const productos = [
-//     {
-//         id: 1,
-//         nombre: "Laptop Dell Inspiron",
-//         precio: 1000,
-//         descripcion: "Laptop Dell Inspiron con 16GB RAM y 512GB SSD",
-//         categoria: "Laptops"
-//     },
-//     {
-//         id: 2,
-//         nombre: "Smartphone Samsung Galaxy S21",
-//         precio: 800,
-//         descripcion: "Smartphone Samsung Galaxy S21 con 128GB de almacenamiento",
-//         categoria: "Smartphones"
-//     },
-//     {
-//         id: 3,
-//         nombre: "Tablet Apple iPad Pro",
-//         precio: 1200,
-//         descripcion: "Apple iPad Pro de 12.9 pulgadas, 256GB",
-//         categoria: "Tablets"
-//     },
-//     {
-//         id: 4,
-//         nombre: "Monitor LG UltraWide",
-//         precio: 300,
-//         descripcion: "Monitor LG UltraWide de 34 pulgadas, 2560x1080",
-//         categoria: "Monitores"
-//     },
-//     {
-//         id: 5,
-//         nombre: "Auriculares Sony WH-1000XM4",
-//         precio: 350,
-//         descripcion: "Auriculares inalámbricos con cancelación de ruido",
-//         categoria: "Auriculares"
-//     },
-//     {
-//         id: 6,
-//         nombre: "Reloj Inteligente Apple Watch Series 6",
-//         precio: 500,
-//         descripcion: "Apple Watch Series 6 con GPS, 44mm",
-//         categoria: "Relojes Inteligentes"
-//     },
-//     {
-//         id: 7,
-//         nombre: "Cámara Canon EOS R",
-//         precio: 1800,
-//         descripcion: "Cámara sin espejo de fotograma completo, 30.3MP",
-//         categoria: "Cámaras"
-//     },
-//     {
-//         id: 8,
-//         nombre: "Impresora HP LaserJet Pro",
-//         precio: 250,
-//         descripcion: "Impresora láser monocromática inalámbrica",
-//         categoria: "Impresoras"
-//     },
-//     {
-//         id: 9,
-//         nombre: "Router Asus RT-AC86U",
-//         precio: 200,
-//         descripcion: "Router Wi-Fi de doble banda con tecnología MU-MIMO",
-//         categoria: "Routers"
-//     },
-//     {
-//         id: 10,
-//         nombre: "Teclado Mecánico Corsair K95",
-//         precio: 200,
-//         descripcion: "Teclado mecánico RGB con interruptores Cherry MX Speed",
-//         categoria: "Teclados"
-//     }
-// ];
+const productos = [
+    {
+        id: 1,
+        nombre: "Laptop Dell Inspiron",
+        precio: 1000,
+        descripcion: "Laptop Dell Inspiron con 16GB RAM y 512GB SSD",
+        categoria: "Laptops"
+    },
+    {
+        id: 2,
+        nombre: "Smartphone Samsung Galaxy S21",
+        precio: 800,
+        descripcion: "Smartphone Samsung Galaxy S21 con 128GB de almacenamiento",
+        categoria: "Smartphones"
+    },
+    {
+        id: 3,
+        nombre: "Tablet Apple iPad Pro",
+        precio: 1200,
+        descripcion: "Apple iPad Pro de 12.9 pulgadas, 256GB",
+        categoria: "Tablets"
+    },
+    {
+        id: 4,
+        nombre: "Monitor LG UltraWide",
+        precio: 300,
+        descripcion: "Monitor LG UltraWide de 34 pulgadas, 2560x1080",
+        categoria: "Monitores"
+    },
+    {
+        id: 5,
+        nombre: "Auriculares Sony WH-1000XM4",
+        precio: 350,
+        descripcion: "Auriculares inalámbricos con cancelación de ruido",
+        categoria: "Auriculares"
+    },
+    {
+        id: 6,
+        nombre: "Reloj Inteligente Apple Watch Series 6",
+        precio: 500,
+        descripcion: "Apple Watch Series 6 con GPS, 44mm",
+        categoria: "Relojes Inteligentes"
+    },
+    {
+        id: 7,
+        nombre: "Cámara Canon EOS R",
+        precio: 1800,
+        descripcion: "Cámara sin espejo de fotograma completo, 30.3MP",
+        categoria: "Cámaras"
+    },
+    {
+        id: 8,
+        nombre: "Impresora HP LaserJet Pro",
+        precio: 250,
+        descripcion: "Impresora láser monocromática inalámbrica",
+        categoria: "Impresoras"
+    },
+    {
+        id: 9,
+        nombre: "Router Asus RT-AC86U",
+        precio: 200,
+        descripcion: "Router Wi-Fi de doble banda con tecnología MU-MIMO",
+        categoria: "Routers"
+    },
+    {
+        id: 10,
+        nombre: "Teclado Mecánico Corsair K95",
+        precio: 200,
+        descripcion: "Teclado mecánico RGB con interruptores Cherry MX Speed",
+        categoria: "Teclados"
+    }
+];
 
-// function listarProductos() {
-//     return JSON.stringify(productos, null, 2);
-// }
+//Añadir productos al JSON 
 
-// console.log(listarProductos());
+const btnSubmit = document.getElementById('btn-add-product')
 
-// function agregarProducto(nombre, precio, descripcion, categoria) {
-//     const nuevoProducto = {
-//         id: productos.length + 1,
-//         nombre: nombre,
-//         precio: precio,
-//         descripcion: descripcion,
-//         categoria: categoria
-//     };
-//     productos.push(nuevoProducto);
-//     console.log("Producto agregado exitosamente:");
-//     console.log(JSON.stringify(nuevoProducto, null, 2));
-// }
+btnSubmit.addEventListener('click', function agregarProducto(nameValue, priceValue, descriptionValue, categoryValue) {
+    const nuevoProducto = {
+        id: productos.length + 1,
+        nombre: nameValue,
+        precio: priceValue,
+        descripcion: descriptionValue,
+        categoria: categoryValue
+    };
+    productos.push(nuevoProducto);
+    console.log("Producto agregado exitosamente:");
+    console.log(JSON.stringify(nuevoProducto, null, 2));
+})
+
+function listarProductos() {
+    return JSON.stringify(productos, null, 2);
+    }
+    console.log(listarProductos());
 
 // Ejemplo de uso
 // agregarProducto("Disco Duro Externo Seagate", 100, "Disco Duro Externo Seagate de 2TB, USB 3.0");
