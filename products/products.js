@@ -1,164 +1,196 @@
-const productos = [
-    {
-        id: 1,
-        nombre: "Laptop Dell Inspiron",
-        precio: 1000,
-        descripcion: "Laptop Dell Inspiron con 16GB RAM y 512GB SSD"
-    },
-    {
-        id: 2,
-        nombre: "Smartphone Samsung Galaxy S21",
-        precio: 800,
-        descripcion: "Smartphone Samsung Galaxy S21 con 128GB de almacenamiento"
-    },
-    {
-        id: 3,
-        nombre: "Tablet Apple iPad Pro",
-        precio: 1200,
-        descripcion: "Apple iPad Pro de 12.9 pulgadas, 256GB"
-    },
-    {
-        id: 4,
-        nombre: "Monitor LG UltraWide",
-        precio: 300,
-        descripcion: "Monitor LG UltraWide de 34 pulgadas, 2560x1080"
-    },
-    {
-        id: 5,
-        nombre: "Auriculares Sony WH-1000XM4",
-        precio: 350,
-        descripcion: "Auriculares inalámbricos con cancelación de ruido"
-    },
-    {
-        id: 6,
-        nombre: "Reloj Inteligente Apple Watch Series 6",
-        precio: 500,
-        descripcion: "Apple Watch Series 6 con GPS, 44mm"
-    },
-    {
-        id: 7,
-        nombre: "Cámara Canon EOS R",
-        precio: 1800,
-        descripcion: "Cámara sin espejo de fotograma completo, 30.3MP"
-    },
-    {
-        id: 8,
-        nombre: "Impresora HP LaserJet Pro",
-        precio: 250,
-        descripcion: "Impresora láser monocromática inalámbrica"
-    },
-    {
-        id: 9,
-        nombre: "Router Asus RT-AC86U",
-        precio: 200,
-        descripcion: "Router Wi-Fi de doble banda con tecnología MU-MIMO"
-    },
-    {
-        id: 10,
-        nombre: "Teclado Mecánico Corsair K95",
-        precio: 200,
-        descripcion: "Teclado mecánico RGB con interruptores Cherry MX Speed"
+// Start of the form validation
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.add-product-form');
+    const nameInput = document.getElementById('product-name');
+    const priceInput = document.getElementById('price');
+    const categorySelect = document.getElementById('category');
+    const messageTextarea = document.getElementById('description');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const errorParagraph = document.createElement('p');
+    const errorColor = 'var(--Colors-semantic-error, #e93828)';
+
+    errorParagraph.style.color = 'var(--Colors-semantic-error, #e93828)';
+    submitButton.insertAdjacentElement('afterend', errorParagraph);
+
+    function clearErrorStyles() {
+        nameInput.style.borderColor = '';
+        priceInput.style.borderColor = '';
+        categorySelect.style.borderColor = '';
+        messageTextarea.style.borderColor = '';
+        errorParagraph.innerHTML = '';
     }
-];
 
-const publicaciones = [
-    {
-        id: 1,
-        titulo: "Laptop Dell Inspiron - 2 meses de uso",
-        autor: "Juan Pérez",
-        fecha: "2024-05-01",
-        contenido: "Laptop Dell Inspiron con 2 meses de uso, en perfecto estado."
-    },
-    {
-        id: 2,
-        titulo: "Smartphone Samsung Galaxy S21 - 6 meses de uso",
-        autor: "María Gómez",
-        fecha: "2024-05-02",
-        contenido: "Samsung Galaxy S21 con 6 meses de uso, sin rasguños."
-    },
-    {
-        id: 3,
-        titulo: "Tablet Apple iPad Pro - 1 año de uso",
-        autor: "Carlos López",
-        fecha: "2024-05-03",
-        contenido: "iPad Pro con 1 año de uso, incluye Apple Pencil."
-    },
-    {
-        id: 4,
-        titulo: "Monitor LG UltraWide - 8 meses de uso",
-        autor: "Ana Martínez",
-        fecha: "2024-05-04",
-        contenido: "Monitor UltraWide con 8 meses de uso, excelente para multitarea."
-    },
-    {
-        id: 5,
-        titulo: "Auriculares Sony WH-1000XM4 - 2 meses de uso",
-        autor: "Luis Fernández",
-        fecha: "2024-05-05",
-        contenido: "Auriculares Sony con 2 meses de uso, calidad de sonido excepcional."
-    },
-    {
-        id: 6,
-        titulo: "Reloj Inteligente Apple Watch Series 6 - 1.5 años de uso",
-        autor: "Laura Sánchez",
-        fecha: "2024-05-06",
-        contenido: "Apple Watch con 1.5 años de uso, en muy buen estado."
-    },
-    {
-        id: 7,
-        titulo: "Cámara Canon EOS R - 2 años de uso",
-        autor: "Jorge Díaz",
-        fecha: "2024-05-07",
-        contenido: "Cámara Canon con 2 años de uso, incluye lente EF 24-105mm."
-    },
-    {
-        id: 8,
-        titulo: "Impresora HP LaserJet Pro - 3 meses de uso",
-        autor: "Elena Ramírez",
-        fecha: "2024-05-08",
-        contenido: "Impresora HP con 3 meses de uso, ideal para oficina en casa."
-    },
-    {
-        id: 9,
-        titulo: "Router Asus RT-AC86U - 1 año de uso",
-        autor: "Pablo Moreno",
-        fecha: "2024-05-09",
-        contenido: "Router Asus con 1 año de uso, excelente cobertura y velocidad."
-    },
-    {
-        id: 10,
-        titulo: "Teclado Mecánico Corsair K95 - 3 años de uso",
-        autor: "Sofía Torres",
-        fecha: "2024-05-10",
-        contenido: "Teclado Corsair con 3 años de uso, teclas mecánicas en perfecto estado."
+    //start of the validation process
+    function validateName() {
+        if (nameInput.value.trim() === '' || nameInput.value.length < 4 || isNaN(nameInput.value) == false) {
+            nameInput.style.borderColor = errorColor;
+            return 'Por favor, ingrese un nombre de producto válido.';
+        }
+        return '';
     }
-];
 
-function listarProductos() {
-    return JSON.stringify(productos, null, 2);
-}
+    function validatePrice() {
+        const priceValue = priceInput.value.trim();
+        if (priceInput.value.trim() === '' || priceValue.length < 0) {
+            priceInput.style.borderColor = errorColor;
+            return 'Por favor, ingrese un precio válido.';
+        } else{
+            return '';
+        }
+    }
 
-function listarPublicaciones() {
-    return JSON.stringify(publicaciones, null, 2);
-}
+    function validateCategory() {
+        if (categorySelect.value === '') {
+            categorySelect.style.borderColor = errorColor;
+            return 'Por favor, seleccione una categoría.';
+        }
+        return '';
+    }
 
-function agregarProducto(nombre, precio, descripcion) {
-    const nuevoProducto = {
-        id: productos.length + 1,
-        nombre: nombre,
-        precio: precio,
-        descripcion: descripcion
-    };
-    productos.push(nuevoProducto);
-    console.log("Producto agregado exitosamente:");
-    console.log(JSON.stringify(nuevoProducto, null, 2));
-}
+    function validateMessage() {
+        if (messageTextarea.value.trim().length < 30) {
+            messageTextarea.style.borderColor = errorColor;
+            return 'Por favor, ingrese un mensaje de al menos 30 caracteres.';
+        }
+        return '';
+    }
+
+    function showError(message) {
+        errorParagraph.innerHTML = message;
+    }
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        clearErrorStyles();
+
+        errorMessage = validateName();
+        if (errorMessage) {
+            showError(errorMessage);
+            return;
+        }
+
+        errorMessage = validatePrice();
+        if (errorMessage) {
+            showError(errorMessage);
+            return;
+        }
+
+        errorMessage = validateCategory();
+        if (errorMessage) {
+            showError(errorMessage);
+            return;
+        }
+
+        errorMessage = validateMessage();
+        if (errorMessage) {
+            showError(errorMessage);
+            return;
+        }
+
+        errorParagraph.innerHTML = '';
+        form.submit();
+    });
+});
+
+
+// End of the form add product validation
+
+// const productos = [
+//     {
+//         id: 1,
+//         nombre: "Laptop Dell Inspiron",
+//         precio: 1000,
+//         descripcion: "Laptop Dell Inspiron con 16GB RAM y 512GB SSD",
+//         categoria: "Laptops"
+//     },
+//     {
+//         id: 2,
+//         nombre: "Smartphone Samsung Galaxy S21",
+//         precio: 800,
+//         descripcion: "Smartphone Samsung Galaxy S21 con 128GB de almacenamiento",
+//         categoria: "Smartphones"
+//     },
+//     {
+//         id: 3,
+//         nombre: "Tablet Apple iPad Pro",
+//         precio: 1200,
+//         descripcion: "Apple iPad Pro de 12.9 pulgadas, 256GB",
+//         categoria: "Tablets"
+//     },
+//     {
+//         id: 4,
+//         nombre: "Monitor LG UltraWide",
+//         precio: 300,
+//         descripcion: "Monitor LG UltraWide de 34 pulgadas, 2560x1080",
+//         categoria: "Monitores"
+//     },
+//     {
+//         id: 5,
+//         nombre: "Auriculares Sony WH-1000XM4",
+//         precio: 350,
+//         descripcion: "Auriculares inalámbricos con cancelación de ruido",
+//         categoria: "Auriculares"
+//     },
+//     {
+//         id: 6,
+//         nombre: "Reloj Inteligente Apple Watch Series 6",
+//         precio: 500,
+//         descripcion: "Apple Watch Series 6 con GPS, 44mm",
+//         categoria: "Relojes Inteligentes"
+//     },
+//     {
+//         id: 7,
+//         nombre: "Cámara Canon EOS R",
+//         precio: 1800,
+//         descripcion: "Cámara sin espejo de fotograma completo, 30.3MP",
+//         categoria: "Cámaras"
+//     },
+//     {
+//         id: 8,
+//         nombre: "Impresora HP LaserJet Pro",
+//         precio: 250,
+//         descripcion: "Impresora láser monocromática inalámbrica",
+//         categoria: "Impresoras"
+//     },
+//     {
+//         id: 9,
+//         nombre: "Router Asus RT-AC86U",
+//         precio: 200,
+//         descripcion: "Router Wi-Fi de doble banda con tecnología MU-MIMO",
+//         categoria: "Routers"
+//     },
+//     {
+//         id: 10,
+//         nombre: "Teclado Mecánico Corsair K95",
+//         precio: 200,
+//         descripcion: "Teclado mecánico RGB con interruptores Cherry MX Speed",
+//         categoria: "Teclados"
+//     }
+// ];
+
+// function listarProductos() {
+//     return JSON.stringify(productos, null, 2);
+// }
+
+// console.log(listarProductos());
+
+// function agregarProducto(nombre, precio, descripcion, categoria) {
+//     const nuevoProducto = {
+//         id: productos.length + 1,
+//         nombre: nombre,
+//         precio: precio,
+//         descripcion: descripcion,
+//         categoria: categoria
+//     };
+//     productos.push(nuevoProducto);
+//     console.log("Producto agregado exitosamente:");
+//     console.log(JSON.stringify(nuevoProducto, null, 2));
+// }
 
 // Ejemplo de uso
-agregarProducto("Disco Duro Externo Seagate", 100, "Disco Duro Externo Seagate de 2TB, USB 3.0");
+// agregarProducto("Disco Duro Externo Seagate", 100, "Disco Duro Externo Seagate de 2TB, USB 3.0");
 
 // console.log("Lista de productos actualizada:");
 // console.log(listarProductos());
 
-// console.log("Lista de publicaciones:");
-// console.log(listarPublicaciones());
