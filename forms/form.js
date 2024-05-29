@@ -202,6 +202,7 @@ function agregarProducto() {
 submitButton.addEventListener('click', function(event) {
     event.preventDefault(); 
     agregarProducto();
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 });
 
 
