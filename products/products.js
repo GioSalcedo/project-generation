@@ -1,3 +1,4 @@
+// Start of the form validation
 //variables 
 const form = document.querySelector('.add-product-form');
 const nameInput = document.getElementById('product-name');
@@ -8,8 +9,16 @@ const submitButton = form.querySelector('button[type="submit"]');
 
 const btnSubmit = document.getElementById('btn-add-product')
 
-// Start of the form validation
 document.addEventListener('DOMContentLoaded', function () {
+    //variables 
+    const form = document.querySelector('.add-product-form');
+    const nameInput = document.getElementById('product-name');
+    const priceInput = document.getElementById('price');
+    const categorySelect = document.getElementById('category');
+    const messageTextarea = document.getElementById('description');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    const btnSubmit = document.getElementById('btn-add-product')
     const errorParagraph = document.createElement('p');
     const errorColor = 'var(--Colors-semantic-error, #e93828)';
 
@@ -93,7 +102,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         errorParagraph.innerHTML = '';
-        form.submit();
+        agregarProducto();
+        // form.submit(); --> Envía el form y recarga la página     
+    });
+
+    submitButton.addEventListener('click', function(event) {
+        
     });
 });
 
@@ -197,17 +211,13 @@ function agregarProducto() {
 
     form.reset();
 }
-submitButton.addEventListener('click', function(event) {
-    event.preventDefault(); 
-    agregarProducto();
-});
 
 //Cargar imágenes del producto 
-const input = document.querySelector(".input-images");
-const preview = document.querySelector(".preview");
+// const input = document.querySelector(".input-images");
+// const preview = document.querySelector(".preview");
 
-input.style.opacity = 0;
+// input.style.opacity = 0;
 
-input.addEventListener("change", updateImageDisplay);
+// input.addEventListener("change", updateImageDisplay);
 
 
