@@ -6,6 +6,8 @@ const categorySelect = document.getElementById('category');
 const messageTextarea = document.getElementById('description');
 const submitButton = form.querySelector('button[type="submit"]');
 
+const btnSubmit = document.getElementById('btn-add-product')
+
 // Start of the form validation
 document.addEventListener('DOMContentLoaded', function () {
     const errorParagraph = document.createElement('p');
@@ -171,35 +173,41 @@ const productos = [
 ];
 
 //Añadir productos al JSON 
+
 function agregarProducto() {
-    const btnSubmit = document.getElementById('btn-add-product')
+    const nameValue = nameInput.value.trim()
+    const priceValue = priceInput.value.trim();
+    const categoryValue = categorySelect.value.trim();
+    const descriptionValue = messageTextarea.value.trim();
 
-    function agregarProducto() {
-        const nameValue = nameInput.value.trim()
-        const priceValue = priceInput.value.trim();
-        const categoryValue = categorySelect.value.trim();
-        const descriptionValue = messageTextarea.value.trim();
+    const nuevoProducto = {
+        id: productos.length + 1,
+        nombre: nameValue,
+        precio: priceValue,
+        descripcion: descriptionValue,
+        categoria: categoryValue
+    };
 
-        const nuevoProducto = {
-            id: productos.length + 1,
-            nombre: nameValue,
-            precio: priceValue,
-            descripcion: descriptionValue,
-            categoria: categoryValue
-        };
+    productos.push(nuevoProducto);
 
-        productos.push(nuevoProducto);
+    console.log("Producto agregado exitosamente:");
+    console.log(JSON.stringify(nuevoProducto, null, 2));
 
-        console.log("Producto agregado exitosamente:");
-        console.log(JSON.stringify(nuevoProducto, null, 2));
+    localStorage.setItem('productos', JSON.stringify(productos));
 
-        localStorage.setItem('productos', JSON.stringify(productos));
-
-        form.reset();
-    }
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault(); 
-        agregarProducto();
-    });
+    form.reset();
 }
+submitButton.addEventListener('click', function(event) {
+    event.preventDefault(); 
+    agregarProducto();
+});
+
+//Cargar imágenes del producto 
+const input = document.querySelector(".input-images");
+const preview = document.querySelector(".preview");
+
+input.style.opacity = 0;
+
+input.addEventListener("change", updateImageDisplay);
+
 

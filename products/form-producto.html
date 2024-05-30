@@ -38,7 +38,17 @@
               
               <label for="description">Descripción</label>
               <textarea id="description" name="message"  placeholder="Ingrese la descripción del producto"></textarea>
-              
+              <label for="image_uploads">Cargue imágenes sobre su producto en formatos (PNG, JPG, JPEG, WEBP)</label>
+              <input class ="input-images"
+                type="file"
+                id="image_uploads"
+                name="image_uploads"
+                accept=".jpg, .jpeg, .png, .webp"
+                multiple 
+              />
+              <div class="preview">
+                <p>Actualmente no tienes archivos cargados.</p>
+              </div>
               <button id="btn-add-product" type="submit">Añadir producto</button>
             </form>
         </div>
